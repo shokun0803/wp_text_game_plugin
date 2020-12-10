@@ -1,0 +1,73 @@
+#dk_main {
+	position: relative;
+	border: 1px solid #f66;
+	width: 500px;
+	height: 500px;
+	margin: 0;
+	padding: 0;
+}
+
+#dk_main div.column {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 20px;
+}
+
+#dk_main div.column div.name {
+	display: inline-block;
+	border: 1px solid #999;
+	font-size: 16px;
+}
+
+#dk_main div.column div.message {
+	width: 450px;
+	height: 130px;
+	border: 1px solid #999;
+	font-size: 16px;
+}
+
+#dk_main div.column div.message p {
+	visibility: hidden;
+	margin: 5px;
+	padding: 0;
+}
+
+#dk_main div.column div.message p .textSplitLoad {
+	display: none;
+}
+
+#dk_main div.column div.message ul {
+	position: relative;
+	padding: 0;
+}
+
+#dk_main div.column div.message ul li {
+	list-style-type: none;
+	line-height: 1.5;
+	padding: 0.5em 0.5em 0.5em 1.7em;
+	margin-bottom: 4px;
+	background: linear-gradient(to bottom, skyblue 0%, #5aade6 100%);
+	color: #fff;
+}
+
+#dk_main div.column div.message ul li:before {
+	content: "▶";
+	position: absolute;
+	left : 0.5em;
+	color: white;
+}
+
+#dk_main div.next {
+	display: none;
+	position: relative;
+	top: -32px;
+	left: 422px;
+	margin: 0;
+	padding: 0;
+	width: 30px;
+	height: 30px;
+	overflow: hidden;
+}
+
