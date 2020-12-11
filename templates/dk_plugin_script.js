@@ -1,19 +1,31 @@
 jQuery(function($){
 	$('#dk_main .column:first').show();
+	frontimg($('#dk_main .column:first .frontimg'));
 	typewriter($('#dk_main .column:first').children('.message').children());
 
 	$('#dk_main .column .next').click(function() {
 		if($(this).parent().next().length){
 			$(this).parent().hide();
 			$(this).parent().next().show();
+			frontimg($(this).parent().next().children('.frontimg'));
 			if ($(this).parent().next().children('.message').children().is('p') ) {
 				typewriter($(this).parent().next().children('.message').children());
 			}
 		}
 	});
 
+	function frontimg(classis) {
+		classis.each(function(i) {
+			var x = $(this).attr('front-img-x');
+			var y = $(this).attr('front-img-y');
+			$(this).css({top: y+"px",left: x+"px"});
+			$(this).show();
+			//console.log(x,y);
+		});
+	}
+
 	function typewriter(classis) {
-		console.log(classis);
+		//console.log(classis);
 		var setElm = classis,
 		delaySpeed = 250,
 		fadeSpeed = 0;

@@ -15,6 +15,22 @@
 	padding: 20px;
 }
 
+#dk_main div.column div.background {
+	border: 1px solid #999;
+}
+
+#dk_main div.column div.background img {
+	display: block;
+	width: 450px;
+	height: 278px;
+	object-fit: cover;
+}
+
+#dk_main div.column div.frontimg {
+	display: none;
+	position: absolute;
+}
+
 #dk_main div.column div.name {
 	display: inline-block;
 	border: 1px solid #999;

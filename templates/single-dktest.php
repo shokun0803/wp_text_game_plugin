@@ -31,20 +31,39 @@ get_header(); ?>
 
 				$content = get_the_content();
 				//var_dump($content);
+				$image = preg_match_all( "/<\!-- wp:image \{.*?\} -->\n(.*?)\n<\!-- \/wp:image -->/s", $content, $images );
+				foreach( $images[1] as $image ) {
+					if( strpos( $image, 'background' ) !== false ) {
+						$img = preg_match( "/(<img src=.*?\/>)/s", $image, $background );
+					} else {
+						$img = preg_match( "/(<img src=.*?\/>)<figcaption>(.*?)<\/figcaption>/s", $image, $imgs );
+						$frontimg[] = array(
+							'img' => $imgs[1],
+							'pos' => explode( ',', $imgs[2] ),
+						);
+					}
+				}
 				$member = preg_match_all( "/<\!-- wp:heading -->\n<h2>(.*?)<\/h2>\n<\!-- \/wp:heading -->/s", $content, $members );
 				$message = preg_match_all( "/<\!-- wp:paragraph -->\n(.*?)\n<\!-- \/wp:paragraph -->/s", $content, $messages );
 				$choice = preg_match( "/<\!-- wp:list -->\n(.*?)\n<\!-- \/wp:list -->/s", $content, $choices );
-				//var_dump($members[1],$messages[1],$choices[1]);
+				//var_dump($background[1], $frontimg, $members[1],$messages[1],$choices[1]);
 				foreach( $members[1] as $key => $member ):
-					echo '<div class="column">';
-					echo '<div class="name">' . $member . '</div>';
-					echo '<div class="message">' . $messages[1][$key] . '</div>';
-					echo '<div class="next">▶</div>';
-					echo '</div>';
+					echo '<div class="column">' . "\n";
+					echo '<div class="background">' . $background[1] . '</div>' . "\n";
+					foreach( $frontimg as $img ) {
+						if( explode( ':', $img['pos'][0] )[1] == ( $key + 1 ) ) {
+							echo '<div class="frontimg" front-img-x="' . explode( ':', $img['pos'][1] )[1] . '" front-img-y="' . explode( ':', $img['pos'][2] )[1] . '">' . $img['img'] . '</div>' . "\n";
+						}
+					}
+					echo '<div class="name">' . $member . '</div>' . "\n";
+					echo '<div class="message">' . $messages[1][$key] . '</div>' . "\n";
+					echo '<div class="next">▶</div>' . "\n";
+					echo '</div>' . "\n";
 				endforeach;
-					echo '<div class="column">';
-					echo '<div class="message">' . $choices[1] . '</div>';
-					echo '</div>';
+					echo '<div class="column">' . "\n";
+					echo '<div class="background">' . $background[1] . '</div>' . "\n";
+					echo '<div class="message">' . $choices[1] . '</div>' . "\n";
+					echo '</div>' . "\n";
 
 			endwhile; // End the loop.
 			?>
