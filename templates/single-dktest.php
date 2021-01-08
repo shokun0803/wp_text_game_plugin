@@ -1,15 +1,7 @@
 <?php
-/**
- * The template for displaying all single posts
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
- *
- * @package WordPress
- * @subpackage Twenty_Seventeen
- * @since Twenty Seventeen 1.0
- * @version 1.0
- */
+global $template_url;
 function plugin_theme_style() {
+	global $template_url;
 	$template_dir = plugin_dir_path( __DIR__ ) . 'templates/';
 	$template_url = plugin_dir_url( __DIR__ ) . 'templates/';
 	$filetime = date( "YmdHi", filemtime( $template_dir . 'dk_plugin_style.css' ) );
@@ -20,7 +12,15 @@ function plugin_theme_style() {
 	wp_enqueue_script( 'dk_pluginn_script', $template_url . 'dk_plugin_script.js', array(), $filetime );
 }
 add_action( 'wp_enqueue_scripts', 'plugin_theme_style' );
-get_header(); ?>
+?><!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+	<meta charset="<?php bloginfo( 'charset' ); ?>" />
+	<meta name="description" content="<?php bloginfo( 'description' ); ?>">
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<?php wp_head(); ?>
+</head>
+<body>
 
 		<div id="dk_main">
 
@@ -43,9 +43,15 @@ get_header(); ?>
 						);
 					}
 				}
+				if( !isset( $background ) ) {
+					$background[1] = '<img src="' . $template_url . 'img/320x240.png">';
+				}
 				$member = preg_match_all( "/<\!-- wp:heading -->\n<h2>(.*?)<\/h2>\n<\!-- \/wp:heading -->/s", $content, $members );
 				$message = preg_match_all( "/<\!-- wp:paragraph -->\n(.*?)\n<\!-- \/wp:paragraph -->/s", $content, $messages );
 				$choice = preg_match( "/<\!-- wp:list -->\n(.*?)\n<\!-- \/wp:list -->/s", $content, $choices );
+				if( !isset( $choices[1] ) ) {
+					$choices[1] = '';
+				}
 				//var_dump($background[1], $frontimg, $members[1],$messages[1],$choices[1]);
 				foreach( $members[1] as $key => $member ):
 					echo '<div class="column">' . "\n";
@@ -70,5 +76,6 @@ get_header(); ?>
 
 		</div><!-- #dk_main -->
 
-<?php
-get_footer();
+<?php wp_footer(); ?>
+</body>
+</html>
