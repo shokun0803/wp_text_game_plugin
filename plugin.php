@@ -78,7 +78,7 @@ class Dk_Test_Plugin {
 
 	public static function template_loader( $template ) {
 		// テンプレートファイルの場所
-		$template_dir = plugin_dir_path( __DIR__ ) . 'dk-test-plugin/templates/';
+		$template_dir = plugin_dir_path( __FILE__ ) . 'templates/';
 
 		if ( is_search() && 'dktest' == $_GET['s'] ) {
 			// 探すべきファイル名
